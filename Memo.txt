@@ -1,0 +1,1 @@
+App SandboxのCapabilitiesでNetworkのOutgoing Connections(client)がONでないとhtmlやcsvではPreviewが画像になる
