@@ -105,3 +105,68 @@ extension ViewController: NSTableViewDelegate {
 	
 }
 
+extension ViewController: QLPreviewPanelDataSource {
+	
+	func numberOfPreviewItems(in panel: QLPreviewPanel!) -> Int {
+		return self.tableView.selectedRow == -1 ? 0 : 1
+	}
+	
+	func previewPanel(_ panel: QLPreviewPanel!, previewItemAt index: Int) -> QLPreviewItem! {
+		let url: URL = self.fileURLList[self.tableView.selectedRow]
+		
+		if #available(macOS 13.0, *) {
+			return NSURL(fileURLWithPath: url.path(percentEncoded: false))
+		} else {
+			return NSURL(fileURLWithPath: url.path)
+		}
+	}
+	
+}
+
+extension ViewController: QLPreviewPanelDelegate {
+	
+	func previewPanel(_ panel: QLPreviewPanel!, handle event: NSEvent!) -> Bool {
+		
+		if event.type == .keyDown { // キーダウンイベントは、TableViewにリダイレクト
+
+			self.tableView.keyDown(with: event)
+			
+			return true
+		} else {
+			return false
+		}
+	}
+	
+	func previewPanel(_ panel: QLPreviewPanel!, sourceFrameOnScreenFor item: QLPreviewItem!) -> NSRect {
+		var rect: NSRect = NSZeroRect
+		
+		if self.tableView.selectedRow != -1 {
+			let iconX: CGFloat = 10.0
+			let iconY: CGFloat = 4.0
+			let iconWidth: CGFloat = 16.0
+			let visibleRect: NSRect = self.tableView.visibleRect
+			let cellRect: NSRect = self.tableView.frameOfCell(atColumn: 0, row: self.tableView.selectedRow)
+			let iconRect: NSRect = NSRect(x: cellRect.origin.x + iconX, y: cellRect.origin.y + iconY, width: iconWidth, height: iconWidth)
+			
+			if NSIntersectsRect(visibleRect, iconRect) {
+				rect = self.tableView.convert(iconRect, to: nil)
+				rect.origin = (self.tableView.window?.convertPoint(toScreen: rect.origin))!
+			}
+		}
+		
+		return rect
+	}
+	
+	func previewPanel(_ panel: QLPreviewPanel!, transitionImageFor item: QLPreviewItem!, contentRect: UnsafeMutablePointer<NSRect>!) -> Any! {
+		var image: NSImage! = nil
+		
+		if #available(macOS 13.0, *) {
+			image = NSWorkspace.shared.icon(forFile: item.previewItemURL.path(percentEncoded: false))
+		} else {
+			image = NSWorkspace.shared.icon(forFile: item.previewItemURL.path)
+		}
+		
+		return image
+	}
+	
+}
