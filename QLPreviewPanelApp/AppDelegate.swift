@@ -25,13 +25,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		return true
 	}
 	
-	override func beginPreviewPanelControl(_ panel: QLPreviewPanel!) {
+	@MainActor override func beginPreviewPanelControl(_ panel: QLPreviewPanel!) {
 		panel.delegate = self
 		panel.dataSource = self
 		QLPreviewPanel.shared().reloadData()
 	}
 	
-	override func endPreviewPanelControl(_ panel: QLPreviewPanel!) {
+	@MainActor override func endPreviewPanelControl(_ panel: QLPreviewPanel!) {
 		panel.delegate = nil
 		panel.dataSource = nil
 	}
