@@ -128,10 +128,20 @@ extension ViewController: QLPreviewPanelDelegate {
 	
 	nonisolated func previewPanel(_ panel: QLPreviewPanel!, handle event: NSEvent!) -> Bool {
 		
-		if event.type == .keyDown { // キーダウンイベントは、TableViewにリダイレクト
+		class UncheckedEvent: @unchecked Sendable {
+			let event: NSEvent
 			
-			//MainActor.assumeIsolated { self.tableView.keyDown(with: event) }
-			MainActor.assumeIsolated { self.tableView.keyDown(with: NSApp.currentEvent!) }
+			init(event: NSEvent) {
+				self.event = event
+			}
+		}
+		
+		if event.type == .keyDown { // キーダウンイベントは、TableViewにリダイレクト
+			let uncheckedEvent: UncheckedEvent = UncheckedEvent(event: event)
+			
+			//MainActor.assumeIsolated { self.tableView.keyDown(with: event) } // "Sending 'event' risks causing data races" error in Swift 6
+			//MainActor.assumeIsolated { self.tableView.keyDown(with: NSApp.currentEvent!) }
+			MainActor.assumeIsolated { self.tableView.keyDown(with: uncheckedEvent.event) }
 			
 			return true
 		} else {
