@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7C5728352C27C68E00F3C335 /* UncheckedSendable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5728342C27C68E00F3C335 /* UncheckedSendable.swift */; };
 		7C5CCCCF2AE214B300B8D6E4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5CCCCE2AE214B300B8D6E4 /* AppDelegate.swift */; };
 		7C5CCCD12AE214B300B8D6E4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5CCCD02AE214B300B8D6E4 /* ViewController.swift */; };
 		7C5CCCD32AE214B500B8D6E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C5CCCD22AE214B500B8D6E4 /* Assets.xcassets */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7C5728342C27C68E00F3C335 /* UncheckedSendable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UncheckedSendable.swift; sourceTree = "<group>"; };
 		7C5CCCCB2AE214B300B8D6E4 /* QLPreviewPanelApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QLPreviewPanelApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C5CCCCE2AE214B300B8D6E4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7C5CCCD02AE214B300B8D6E4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -71,6 +73,7 @@
 		7C5CCCCD2AE214B300B8D6E4 /* QLPreviewPanelApp */ = {
 			isa = PBXGroup;
 			children = (
+				7C5728342C27C68E00F3C335 /* UncheckedSendable.swift */,
 				7C5CCCCE2AE214B300B8D6E4 /* AppDelegate.swift */,
 				7C5CCCE32AE2160800B8D6E4 /* WindowController.swift */,
 				7C5CCCD02AE214B300B8D6E4 /* ViewController.swift */,
@@ -178,6 +181,7 @@
 			files = (
 				7C5CCCD12AE214B300B8D6E4 /* ViewController.swift in Sources */,
 				7C5CCCE42AE2160800B8D6E4 /* WindowController.swift in Sources */,
+				7C5728352C27C68E00F3C335 /* UncheckedSendable.swift in Sources */,
 				7C5CCCCF2AE214B300B8D6E4 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
