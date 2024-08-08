@@ -6,7 +6,7 @@ import QuickLookUI
 import Cocoa
 
 @main
-class AppDelegate: NSObject, NSApplicationDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate, @unchecked Sendable {
 	
 	func applicationDidFinishLaunching(_ aNotification: Notification) {
 		self.newDocument(self)
@@ -25,15 +25,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		return true
 	}
 	
-	@MainActor override func beginPreviewPanelControl(_ panel: QLPreviewPanel!) {
-		panel.delegate = self
-		panel.dataSource = self
-		QLPreviewPanel.shared().reloadData()
+	override func beginPreviewPanelControl(_ panel: QLPreviewPanel!) {
+		MainActor.assumeIsolated {
+			
+			panel.delegate = self
+			panel.dataSource = self
+			QLPreviewPanel.shared().reloadData()
+		}
 	}
 	
-	@MainActor override func endPreviewPanelControl(_ panel: QLPreviewPanel!) {
-		panel.delegate = nil
-		panel.dataSource = nil
+	override func endPreviewPanelControl(_ panel: QLPreviewPanel!) {
+		MainActor.assumeIsolated {
+			
+			panel.delegate = nil
+			panel.dataSource = nil
+		}
 	}
 	
 	// MARK: -

@@ -20,14 +20,20 @@ class WindowController: NSWindowController {
 	}
 	
 	override func beginPreviewPanelControl(_ panel: QLPreviewPanel!) {
-		panel.delegate = self.contentViewController as! ViewController
-		panel.dataSource = self.contentViewController as! ViewController
-		QLPreviewPanel.shared().reloadData()
+		MainActor.assumeIsolated {
+			
+			panel.delegate = self.contentViewController as! ViewController
+			panel.dataSource = self.contentViewController as! ViewController
+			QLPreviewPanel.shared().reloadData()
+		}
 	}
 	
 	override func endPreviewPanelControl(_ panel: QLPreviewPanel!) {
-		panel.delegate = nil
-		panel.dataSource = nil
+		MainActor.assumeIsolated {
+			
+			panel.delegate = nil
+			panel.dataSource = nil
+		}
 	}
 	
 	// MARK: -
